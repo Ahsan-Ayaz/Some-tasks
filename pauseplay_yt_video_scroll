@@ -1,0 +1,22 @@
+<iframe class="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/rCxwNAuIX0o?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1controls=0" frameborder="0"></iframe>
+
+<script>
+var inner = $("a.play-video");
+    var elementPosTop = inner.position().top;
+    //var elementPosBottom = inner.position().bottom();
+    var viewportHeight = $(window).height();
+    $(window).on('scroll', function() {
+        var scrollPos = $(window).scrollTop();
+        var elementFromTop = elementPosTop - scrollPos;
+        //var elementFromBottom = elementPosBottom - scrollPos;
+
+        if (elementFromTop > 0 && elementFromTop < elementPosTop + viewportHeight) {
+            
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+        } else if(scrollPos > elementPosTop + 200){
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+        }else {
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+        }
+    });
+</script>
